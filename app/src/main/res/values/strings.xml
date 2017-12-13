@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">FastScrollDemo</string>
+    <string name="fast_scroller">Fast Scroller</string>
+    <string name="fast_scroll_recycler_view">Fast-scroll RecyclerView</string>
+    <string name="fast_scroller_intro">This approach is ported from a library called LollipopContactsRecyclerViewFastScroller. It is simple, lightweight but lacks customization capabilities. More problematically, the xml has to declared one more view beside RecyclerView to achieve the purpose, it could be a little troublesome to modify such code in large codebase.</string>
+    <string name="fast_scroll_rv_intro">This approach is a combination of the above-mentioned library and another library called RecyclerView-FastScroll. It not only keeps the simplicity of the original lib but also gains the ability of declaring only one view in xml layout. A considerable drawback is the fact that the drawing process, the bubble for instance, is actually hardcoded and difficult to change.</string>
+    <string name="call_button">Call button</string>
+    <string name="video_call_button">Video call button</string>
+    <string name="profile_picture">Profile picture</string>
+</resources>

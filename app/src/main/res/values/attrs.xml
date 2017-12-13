@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="FastScrollRecyclerView">
+        <attr name="scrollerColor" format="reference|color" />
+        <attr name="textColor" format="reference|color" />
+        <attr name="textSize" format="reference|dimension" />
+        <attr name="popupSize" format="reference|dimension" />
+    </declare-styleable>
+</resources>
