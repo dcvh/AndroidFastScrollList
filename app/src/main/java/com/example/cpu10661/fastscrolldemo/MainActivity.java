@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import com.example.cpu10661.fastscrolldemo.FastScrollRecyclerView.FastScrollRVActivity;
 import com.example.cpu10661.fastscrolldemo.FastScroller.FastScrollerActivity;
@@ -17,7 +19,8 @@ import com.example.cpu10661.fastscrolldemo.FastScroller.FastScrollerActivity;
 public class MainActivity extends AppCompatActivity {
 
     private static final int RC_READ_CONTACTS_PERMISSION = 1;
-    Intent mNextActivityIntent = null;
+    private Intent mNextActivityIntent = null;
+    private boolean mIsScrollerDrawingEnabled = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mNextActivityIntent = new Intent(MainActivity.this, FastScrollerActivity.class);
-                requestContactPermission();
+                startCorrespondingApproach();
             }
         });
 
@@ -38,18 +41,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mNextActivityIntent = new Intent(MainActivity.this, FastScrollRVActivity.class);
-                requestContactPermission();
+                startCorrespondingApproach();
+            }
+        });
+
+        CheckBox isScrollerEnabledCheckBox = findViewById(R.id.cb_scroller_enabled);
+        mIsScrollerDrawingEnabled = isScrollerEnabledCheckBox.isChecked();
+        isScrollerEnabledCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                mIsScrollerDrawingEnabled = isChecked;
             }
         });
     }
 
-    private void requestContactPermission() {
+    private void startCorrespondingApproach() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.READ_CONTACTS},
                     RC_READ_CONTACTS_PERMISSION);
         } else {
+            mNextActivityIntent.putExtra(FastScrollRVActivity.ARG_IS_SCROLLER_DRAWING_ENABLED,
+                    mIsScrollerDrawingEnabled);
             startActivity(mNextActivityIntent);
         }
     }
@@ -61,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             case RC_READ_CONTACTS_PERMISSION:
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startActivity(mNextActivityIntent);
+                    startCorrespondingApproach();
                 }
                 break;
             default:

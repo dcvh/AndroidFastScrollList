@@ -26,6 +26,7 @@ public class FastScrollRecyclerView extends RecyclerView {
     private static final String TAG = FastScrollRecyclerView.class.getSimpleName();
 
     private FastScroller mFastScroller;
+    private boolean mIsScrollerEnabled = true;
 
     public FastScrollRecyclerView(Context context) {
         super(context);
@@ -91,7 +92,13 @@ public class FastScrollRecyclerView extends RecyclerView {
     @Override
     protected void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
-        mFastScroller.draw(canvas);
+        if (mIsScrollerEnabled) {
+            mFastScroller.draw(canvas);
+        }
+    }
+
+    public void setScrollerDrawingEnabled(boolean enabled) {
+        mIsScrollerEnabled = enabled;
     }
 
     public void setScrollerColor(int color) {

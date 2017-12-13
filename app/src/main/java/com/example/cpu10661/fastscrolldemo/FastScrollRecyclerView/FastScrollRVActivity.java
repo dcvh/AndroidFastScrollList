@@ -14,6 +14,7 @@ import com.example.cpu10661.fastscrolldemo.Utils;
 public class FastScrollRVActivity extends AppCompatActivity {
 
     private static final String TAG = FastScrollRVActivity.class.getSimpleName();
+    public static final String ARG_IS_SCROLLER_DRAWING_ENABLED = "isScrollerDrawingEnabled";
 
     private FastScrollRVAdapter mAdapter;
     private FastScrollRecyclerView mRecyclerView;
@@ -26,6 +27,11 @@ public class FastScrollRVActivity extends AppCompatActivity {
         // basic recycler view
         mRecyclerView = findViewById(R.id.fast_scroll_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+        // enable scroller or not
+        boolean isScrollerDrawingEnabled =
+                getIntent() == null || getIntent().getBooleanExtra(ARG_IS_SCROLLER_DRAWING_ENABLED, true);
+        mRecyclerView.setScrollerDrawingEnabled(isScrollerDrawingEnabled);
 
         new LoadContactsTask().execute();
     }

@@ -7,4 +7,5 @@
     <string name="call_button">Call button</string>
     <string name="video_call_button">Video call button</string>
     <string name="profile_picture">Profile picture</string>
+    <string name="scroller_enabled">Is scroller enabled?</string>
 </resources>
