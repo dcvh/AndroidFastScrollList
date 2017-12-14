@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.example.cpu10661.fastscrolldemo.Contact;
 import com.example.cpu10661.fastscrolldemo.ContactAdapter;
@@ -29,5 +30,10 @@ public class DefaultRVFastScroll extends AppCompatActivity {
 //        ArrayList<Contact> contacts = Utils.generateContactsList(1000);
         ContactAdapter adapter = new ContactAdapter(contacts);
         recyclerView.setAdapter(adapter);
+
+        // reduce dropped frames problem
+        recyclerView.setItemViewCacheSize(contacts.size());
+        recyclerView.setDrawingCacheEnabled(true);
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
     }
 }

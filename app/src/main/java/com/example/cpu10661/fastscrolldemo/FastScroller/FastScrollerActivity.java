@@ -1,27 +1,20 @@
 package com.example.cpu10661.fastscrolldemo.FastScroller;
 
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import com.example.cpu10661.fastscrolldemo.Contact;
-import com.example.cpu10661.fastscrolldemo.FastScrollRecyclerView.FastScrollRVAdapter;
 import com.example.cpu10661.fastscrolldemo.MainActivity;
 import com.example.cpu10661.fastscrolldemo.R;
-import com.example.cpu10661.fastscrolldemo.Utils;
 
 import java.util.ArrayList;
 
 public class FastScrollerActivity extends AppCompatActivity {
 
     private static final String TAG = FastScrollerActivity.class.getSimpleName();
-
-    private FastScrollerAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +39,11 @@ public class FastScrollerActivity extends AppCompatActivity {
         fastScroller.setRecyclerView(recyclerView);
         fastScroller.setViewsToUse(R.layout.fast_scroller,
                 R.id.fast_scroller_bubble, R.id.fast_scroller_handle);
+
+        // reduce dropped frames problem
+        recyclerView.setItemViewCacheSize(contacts.size());
+        recyclerView.setDrawingCacheEnabled(true);
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
     }
 

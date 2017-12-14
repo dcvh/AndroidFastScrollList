@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        Class activityClass = null;
+        Class activityClass;
         switch (view.getId()) {
             case R.id.btn_fast_scroller:
                 activityClass = FastScrollerActivity.class;

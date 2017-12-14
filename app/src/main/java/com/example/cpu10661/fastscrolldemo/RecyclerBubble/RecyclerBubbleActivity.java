@@ -5,15 +5,12 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.example.cpu10661.fastscrolldemo.AlphabetIndexRV.AlphabetIndexRVAdapter;
 import com.example.cpu10661.fastscrolldemo.Contact;
 import com.example.cpu10661.fastscrolldemo.MainActivity;
 import com.example.cpu10661.fastscrolldemo.R;
 import com.futuremind.recyclerviewfastscroll.FastScroller;
 
 import java.util.ArrayList;
-
-import in.myinnos.alphabetsindexfastscrollrecycler.IndexFastScrollRecyclerView;
 
 public class RecyclerBubbleActivity extends AppCompatActivity {
 

@@ -20,4 +20,9 @@ public class FastScrollRVAdapter extends ContactAdapter
     public String getTextPopup(final int position) {
         return Character.toString(mContacts.get(position).getName().charAt(0));
     }
+
+    @Override
+    public long getItemId(int position) {
+        return mContacts.get(position).getId();
+    }
 }

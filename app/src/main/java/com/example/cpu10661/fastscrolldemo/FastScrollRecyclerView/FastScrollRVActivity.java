@@ -1,17 +1,13 @@
 package com.example.cpu10661.fastscrolldemo.FastScrollRecyclerView;
 
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import com.example.cpu10661.fastscrolldemo.Contact;
 import com.example.cpu10661.fastscrolldemo.MainActivity;
 import com.example.cpu10661.fastscrolldemo.R;
-import com.example.cpu10661.fastscrolldemo.Utils;
 
 import java.util.ArrayList;
 
@@ -28,6 +24,7 @@ public class FastScrollRVActivity extends AppCompatActivity {
         // basic recycler view
         FastScrollRecyclerView recyclerView = findViewById(R.id.fast_scroll_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setHasFixedSize(true);
 
         // enable scroller or not
         boolean isScrollerDrawingEnabled =
@@ -40,6 +37,12 @@ public class FastScrollRVActivity extends AppCompatActivity {
                 : new ArrayList<Contact>();
 //        ArrayList<Contact> contacts = Utils.generateContactsList(1000);
         FastScrollRVAdapter adapter = new FastScrollRVAdapter(contacts);
+        adapter.setHasStableIds(true);
         recyclerView.setAdapter(adapter);
+
+        // reduce dropped frames problem
+        recyclerView.setItemViewCacheSize(contacts.size());
+        recyclerView.setDrawingCacheEnabled(true);
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
     }
 }

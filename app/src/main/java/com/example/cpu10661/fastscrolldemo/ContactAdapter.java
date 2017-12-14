@@ -1,12 +1,10 @@
 package com.example.cpu10661.fastscrolldemo;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -29,8 +27,8 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactH
     public ContactAdapter(ArrayList<Contact> contactsList) {
         mContacts = contactsList;
 
-        mRequestOptions = new RequestOptions();
-        mRequestOptions.placeholder(R.drawable.profile_picture_placeholder);
+        mRequestOptions = new RequestOptions()
+                .placeholder(R.drawable.profile_picture_placeholder);
     }
 
     @Override

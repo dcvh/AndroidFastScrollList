@@ -9,8 +9,6 @@ import com.example.cpu10661.fastscrolldemo.Contact;
 import com.example.cpu10661.fastscrolldemo.ContactAdapter;
 import com.example.cpu10661.fastscrolldemo.MainActivity;
 import com.example.cpu10661.fastscrolldemo.R;
-import com.example.cpu10661.fastscrolldemo.RecyclerBubble.RecyclerBubbleAdapter;
-import com.futuremind.recyclerviewfastscroll.FastScroller;
 import com.pluscubed.recyclerfastscroll.RecyclerFastScroller;
 
 import java.util.ArrayList;

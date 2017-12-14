@@ -4,8 +4,6 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-
 /**
  * Created by cpu10661 on 12/11/17.
  */

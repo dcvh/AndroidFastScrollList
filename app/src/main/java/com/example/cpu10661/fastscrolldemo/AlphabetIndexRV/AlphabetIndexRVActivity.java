@@ -7,8 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import com.example.cpu10661.fastscrolldemo.Contact;
 import com.example.cpu10661.fastscrolldemo.MainActivity;
 import com.example.cpu10661.fastscrolldemo.R;
-import com.example.cpu10661.fastscrolldemo.RVFastScrollLib.RVFastScrollLibAdapter;
-import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
 
