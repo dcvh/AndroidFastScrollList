@@ -8,16 +8,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.example.cpu10661.fastscrolldemo.Contact;
+import com.example.cpu10661.fastscrolldemo.MainActivity;
 import com.example.cpu10661.fastscrolldemo.R;
 import com.example.cpu10661.fastscrolldemo.Utils;
+
+import java.util.ArrayList;
 
 public class FastScrollRVActivity extends AppCompatActivity {
 
     private static final String TAG = FastScrollRVActivity.class.getSimpleName();
     public static final String ARG_IS_SCROLLER_DRAWING_ENABLED = "isScrollerDrawingEnabled";
-
-    private FastScrollRVAdapter mAdapter;
-    private FastScrollRecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,42 +26,20 @@ public class FastScrollRVActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fast_scroll_rv);
 
         // basic recycler view
-        mRecyclerView = findViewById(R.id.fast_scroll_recycler_view);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        FastScrollRecyclerView recyclerView = findViewById(R.id.fast_scroll_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         // enable scroller or not
         boolean isScrollerDrawingEnabled =
                 getIntent() == null || getIntent().getBooleanExtra(ARG_IS_SCROLLER_DRAWING_ENABLED, true);
-        mRecyclerView.setScrollerDrawingEnabled(isScrollerDrawingEnabled);
+        recyclerView.setScrollerDrawingEnabled(isScrollerDrawingEnabled);
 
-        new LoadContactsTask().execute();
-    }
-
-    class LoadContactsTask extends AsyncTask<Void, Void, Void> {
-
-        ProgressBar mProgressBar;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            mProgressBar = findViewById(R.id.pb_indeterminate);
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            // adapter
-            mAdapter = new FastScrollRVAdapter(Utils.getContactsList(FastScrollRVActivity.this));
-//            mAdapter = new FastScrollRVAdapter(Utils.generateContactsList(1000));
-            Log.d(TAG, "doInBackground: " + mAdapter.getItemCount());
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            mRecyclerView.setAdapter(mAdapter);
-            mProgressBar.setVisibility(View.GONE);
-            mRecyclerView.setVisibility(View.VISIBLE);
-        }
+        // adapter
+        ArrayList<Contact> contacts = getIntent() != null
+                ? getIntent().<Contact>getParcelableArrayListExtra(MainActivity.ARG_CONTACTS_LIST)
+                : new ArrayList<Contact>();
+//        ArrayList<Contact> contacts = Utils.generateContactsList(1000);
+        FastScrollRVAdapter adapter = new FastScrollRVAdapter(contacts);
+        recyclerView.setAdapter(adapter);
     }
 }

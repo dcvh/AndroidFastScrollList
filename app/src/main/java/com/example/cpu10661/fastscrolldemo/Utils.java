@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -82,7 +83,8 @@ public class Utils {
 //                        Log.i(TAG, "Name: " + name);
 //                        Log.i(TAG, "Phone Number: " + phoneNo);
 
-                        Contact contact = new Contact(id, name, phoneNo, photoThumbnailUri);
+                        Contact contact = new Contact(id, name, phoneNo,
+                                photoThumbnailUri != null ? Uri.parse(photoThumbnailUri) : null);
                         contacts.add(contact);
                         break;
                     }

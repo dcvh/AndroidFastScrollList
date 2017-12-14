@@ -9,14 +9,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.example.cpu10661.fastscrolldemo.Contact;
+import com.example.cpu10661.fastscrolldemo.FastScrollRecyclerView.FastScrollRVAdapter;
+import com.example.cpu10661.fastscrolldemo.MainActivity;
 import com.example.cpu10661.fastscrolldemo.R;
 import com.example.cpu10661.fastscrolldemo.Utils;
+
+import java.util.ArrayList;
 
 public class FastScrollerActivity extends AppCompatActivity {
 
     private static final String TAG = FastScrollerActivity.class.getSimpleName();
 
-    private RecyclerView mRecyclerView;
     private FastScrollerAdapter mAdapter;
 
     @Override
@@ -25,17 +29,24 @@ public class FastScrollerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fast_scroller);
 
         // basic recyclerView
-        mRecyclerView = findViewById(R.id.rv_fast_scroller);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(
+        RecyclerView recyclerView = findViewById(R.id.rv_fast_scroller);
+        recyclerView.setLayoutManager(new LinearLayoutManager(
                 this, LinearLayoutManager.VERTICAL, false));
+
+        // adapter
+        ArrayList<Contact> contacts = getIntent() != null
+                ? getIntent().<Contact>getParcelableArrayListExtra(MainActivity.ARG_CONTACTS_LIST)
+                : new ArrayList<Contact>();
+//        ArrayList<Contact> contacts = Utils.generateContactsList(1000);
+        FastScrollerAdapter adapter = new FastScrollerAdapter(contacts);
+        recyclerView.setAdapter(adapter);
 
         // fast scroller
         final FastScroller fastScroller = findViewById(R.id.fast_scroller);
-        fastScroller.setRecyclerView(mRecyclerView);
+        fastScroller.setRecyclerView(recyclerView);
         fastScroller.setViewsToUse(R.layout.fast_scroller,
                 R.id.fast_scroller_bubble, R.id.fast_scroller_handle);
 
-        new LoadContactsTask().execute();
     }
 
 //    private void hideScrollBarInSingleView() {
@@ -59,32 +70,4 @@ public class FastScrollerActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
-
-    class LoadContactsTask extends AsyncTask<Void, Void, Void> {
-
-        ProgressBar mProgressBar;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            mProgressBar = findViewById(R.id.pb_indeterminate);
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            // adapter
-            mAdapter = new FastScrollerAdapter(Utils.getContactsList(FastScrollerActivity.this));
-//            mAdapter = new FastScrollerAdapter(Utils.generateContactsList(1000));
-            Log.d(TAG, "doInBackground: " + mAdapter.getItemCount());
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            mRecyclerView.setAdapter(mAdapter);
-            mProgressBar.setVisibility(View.GONE);
-            findViewById(R.id.cl_recycler_view).setVisibility(View.VISIBLE);
-        }
-    }
 }

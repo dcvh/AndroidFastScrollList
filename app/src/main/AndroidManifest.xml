@@ -20,6 +20,11 @@
         </activity>
         <activity android:name=".FastScroller.FastScrollerActivity" />
         <activity android:name=".FastScrollRecyclerView.FastScrollRVActivity" />
+        <activity android:name=".RVFastScrollLib.RVFastScrollLibActivity" />
+        <activity android:name=".AlphabetIndexRV.AlphabetIndexRVActivity" />
+        <activity android:name=".RecyclerBubble.RecyclerBubbleActivity" />
+        <activity android:name=".RecyclerFastScroll.RecyclerFastScrollActivity" />
+        <activity android:name=".DefaultRVFastScroll.DefaultRVFastScroll"></activity>
     </application>
 
 </manifest>

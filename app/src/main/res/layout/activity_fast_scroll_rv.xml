@@ -8,20 +8,13 @@
     android:padding="16dp"
     tools:context="com.example.cpu10661.fastscrolldemo.FastScrollRecyclerView.FastScrollRVActivity">
 
-    <ProgressBar
-        android:id="@+id/pb_indeterminate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        style="@android:style/Widget.Material.Light.ProgressBar.Horizontal"
-        tools:targetApi="lollipop" />
-
     <com.example.cpu10661.fastscrolldemo.FastScrollRecyclerView.FastScrollRecyclerView
         android:id="@+id/fast_scroll_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         custom:scrollerColor="@color/colorPrimary"
         custom:textColor="@android:color/white"
-        android:visibility="invisible" />
+        custom:popupSize="80dp"
+        custom:textSize="40sp"/>
 
 </FrameLayout>

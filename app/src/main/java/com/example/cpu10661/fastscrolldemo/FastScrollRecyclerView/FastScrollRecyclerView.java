@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.cpu10661.fastscrolldemo.R;
@@ -64,6 +65,7 @@ public class FastScrollRecyclerView extends RecyclerView {
 
             int popupSize = a.getDimensionPixelSize(R.styleable.FastScrollRecyclerView_popupSize,
                     Utils.dpToPx(getContext(), DEFAULT_BACKGROUND_SIZE));
+            Log.d(TAG, "init: " + popupSize);
             mFastScroller.setPopupSize(popupSize);
 
             a.recycle();
