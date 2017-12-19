@@ -12,6 +12,13 @@ The goal of this experiment is to create a fast-scroll feature for RecyclerView,
 
 Testing with [Profile GPU Rendering](https://developer.android.com/topic/performance/rendering/profile-gpu.html) enabled, the rendering time still depends on the number of contacts: the larger the number of contacts, the higher those frames render. Nevertheless, it should only slightly exceed 16ms for typical situations (< 200) or lose 1 - 2 frames for larger database (~ 1000). In terms of comparing to other major commercial products, it is actually on par with the default contacts application of Android, and far more efficient than the Facebook Messenger application.
 
+Screenshots showing performance difference between the default Contact application and the demo application
+<img src="./images/contact_1.jpg" width="200"/>
+<img src="./images/contact_2.jpg" width="200"/>
+<img src="./images/demo_2.jpg" width="200"/>
+<img src="./images/demo_1.jpg" width="200"/>
+
+
 ## Note
-Keep in mind that this is only a Proof of Concept, **_not a usable library_**.  
-The **_Performance_** section tested mainly with the second approach.
+* Keep in mind that this is only a Proof of Concept, **_not a usable library_**.  
+* The **_Performance_** section tested mainly with the second approach.
