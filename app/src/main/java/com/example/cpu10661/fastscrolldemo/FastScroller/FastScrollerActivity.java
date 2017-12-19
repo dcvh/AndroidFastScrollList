@@ -41,6 +41,7 @@ public class FastScrollerActivity extends AppCompatActivity {
                 R.id.fast_scroller_bubble, R.id.fast_scroller_handle);
 
         // reduce dropped frames problem
+//        recyclerView.getRecycledViewPool().setMaxRecycledViews(0, contacts.size());
         recyclerView.setItemViewCacheSize(contacts.size());
         recyclerView.setDrawingCacheEnabled(true);
         recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);

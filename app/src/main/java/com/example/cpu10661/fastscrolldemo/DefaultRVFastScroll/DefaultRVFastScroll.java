@@ -32,8 +32,9 @@ public class DefaultRVFastScroll extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         // reduce dropped frames problem
-        recyclerView.setItemViewCacheSize(contacts.size());
-        recyclerView.setDrawingCacheEnabled(true);
-        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        recyclerView.getRecycledViewPool().setMaxRecycledViews(0, contacts.size());
+//        recyclerView.setItemViewCacheSize(contacts.size());
+//        recyclerView.setDrawingCacheEnabled(true);
+//        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
     }
 }

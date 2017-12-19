@@ -65,7 +65,6 @@ public class FastScrollRecyclerView extends RecyclerView {
 
             int popupSize = a.getDimensionPixelSize(R.styleable.FastScrollRecyclerView_popupSize,
                     Utils.dpToPx(getContext(), DEFAULT_BACKGROUND_SIZE));
-            Log.d(TAG, "init: " + popupSize);
             mFastScroller.setPopupSize(popupSize);
 
             a.recycle();
