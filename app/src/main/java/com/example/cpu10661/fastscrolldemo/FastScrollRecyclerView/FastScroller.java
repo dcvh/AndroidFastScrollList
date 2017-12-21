@@ -129,10 +129,12 @@ public class FastScroller {
                 mPopup.animateVisibility(true);
                 mIsSelecting = true;
             case MotionEvent.ACTION_MOVE:
-                final float y = event.getY();
-                setBubbleAndHandlePosition(y);
-                setRecyclerViewPosition(y);
-                return true;
+                if (mIsSelecting) {
+                    final float y = event.getY();
+                    setBubbleAndHandlePosition(y);
+                    setRecyclerViewPosition(y);
+                }
+                return mIsSelecting;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_OUTSIDE:

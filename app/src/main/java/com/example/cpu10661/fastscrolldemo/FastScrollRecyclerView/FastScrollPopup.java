@@ -61,7 +61,7 @@ public class FastScrollPopup {
 
     private Rect mBgBounds = new Rect();
 
-    private float mAlpha = 1;
+    private float mAlpha = 0f;
 
     private ObjectAnimator mAlphaAnimator;
     private boolean mVisible;

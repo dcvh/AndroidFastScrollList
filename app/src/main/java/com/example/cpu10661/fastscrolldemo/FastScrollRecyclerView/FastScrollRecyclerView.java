@@ -73,10 +73,11 @@ public class FastScrollRecyclerView extends RecyclerView {
 
     @Override
     public boolean onTouchEvent(MotionEvent e) {
+        boolean wasHandled = false;
         if (mFastScroller.isInsideHandleArea((int)e.getX(), (int)e.getY())) {
-            return mFastScroller.handleTouchEvent(e);
+            wasHandled = mFastScroller.handleTouchEvent(e);
         }
-        return super.onTouchEvent(e);
+        return wasHandled || super.onTouchEvent(e);
     }
 
     @Override
