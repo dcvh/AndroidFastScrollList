@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Px;
@@ -26,15 +27,16 @@ public class FastScroller {
 
     private static final int TRACK_SNAP_RANGE = 5;
     // below variables are all declared in pixel unit
-    private static final int DEFAULT_TRACK_WIDTH = 5;
+    private static final int DEFAULT_TRACK_WIDTH = 4;
     private static final int DEFAULT_HANDLE_HEIGHT = 30;
     private static final int DEFAULT_HANDLE_TOUCH_AREA = 50;
 
     private FastScrollRecyclerView mRecyclerView;
     private Context mContext;
-    private Rect mHandle, mTrack, mTouchArea;
+    private Rect mTrack, mTouchArea;
+    private RectF mHandle;
     private int mRVPaddingTop;
-    private Paint mHandlePaint, mTrackPaint;
+    private Paint mTrackPaint, mHandlePaint, mNormalHandlePaint, mSelectedHandlePaint;
     private FastScrollPopup mPopup;
     private boolean mIsSelecting = false;           // true if we are dragging the handle
 
@@ -43,8 +45,17 @@ public class FastScroller {
 
         mTrackPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mTrackPaint.setColor(Color.GRAY);
-        mHandlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mHandlePaint.setColor(ContextCompat.getColor(context, R.color.colorAccent));
+
+        mNormalHandlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mNormalHandlePaint.setColor(Color.BLACK);
+
+        mSelectedHandlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mSelectedHandlePaint.setColor(ContextCompat.getColor(context, R.color.colorAccent));
+
+        mHandlePaint = mNormalHandlePaint;
+
+//        mHandlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+//        mHandlePaint.setColor(ContextCompat.getColor(context, R.color.colorAccent));
     }
 
     private final RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
@@ -99,7 +110,8 @@ public class FastScroller {
         mRVPaddingTop = top;
 
         mTrack = new Rect(right - handleWidth, top, right, bottom);
-        mHandle = new Rect(right - handleWidth, top, right, top + handleHeight);
+
+        mHandle = new RectF(right - handleWidth, top, right, top + handleHeight);
 
         final int touchArea = Utils.dpToPx(mContext, DEFAULT_HANDLE_TOUCH_AREA);
         mTouchArea = new Rect(right - touchArea, top, right, bottom);
@@ -113,6 +125,7 @@ public class FastScroller {
                 if (event.getX() < mTouchArea.left) {
                     return false;
                 }
+                mHandlePaint = mSelectedHandlePaint;
                 mPopup.animateVisibility(true);
                 mIsSelecting = true;
             case MotionEvent.ACTION_MOVE:
@@ -124,6 +137,7 @@ public class FastScroller {
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_OUTSIDE:
                 mIsSelecting = false;
+                mHandlePaint = mNormalHandlePaint;
                 mPopup.animateVisibility(false);
                 return true;
         }
@@ -136,10 +150,12 @@ public class FastScroller {
     }
 
     void draw(Canvas canvas) {
+
         // track
-        canvas.drawRect(mTrack, mTrackPaint);
+//        canvas.drawRect(mTrack, mTrackPaint);
+
         // handle
-        canvas.drawRect(mHandle, mHandlePaint);
+        canvas.drawRoundRect(mHandle, 100, 100, mHandlePaint);
         // popup
         mPopup.draw(canvas);
     }
@@ -159,14 +175,14 @@ public class FastScroller {
     }
 
     private void setBubbleAndHandlePosition(float y) {
-        int handleHeight = mHandle.height();
+        int handleHeight = (int) mHandle.height();
         // this part assumes that mRVPaddingTop is smaller than mTrack.bottom - handleHeight,
         // cause it does not make any sense for padding to be larger than the RecyclerView itself
         mHandle.top = getValueInRange(mRVPaddingTop, mTrack.bottom - handleHeight, (int) (y - handleHeight / 2));
         mHandle.bottom = mHandle.top + handleHeight;
         // and the same assumption for this
         int popupTop = getValueInRange(mRVPaddingTop, mTrack.bottom - handleHeight / 2, (int) (y));
-        mPopup.updatePopupBounds(mHandle.left, popupTop);
+        mPopup.updatePopupBounds((int) mHandle.left, popupTop);
 
         mRecyclerView.invalidate();
     }
@@ -176,7 +192,7 @@ public class FastScroller {
     }
 
     void setScrollerColor(int color) {
-        mHandlePaint.setColor(color);
+        mSelectedHandlePaint.setColor(color);
         mPopup.setBackgroundColor(color);
     }
 
